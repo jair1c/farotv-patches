@@ -105,9 +105,24 @@ public final class TvScripts {
                 String escaped = name.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", " ");
                 prefix = "window.__youtvBranding=\"" + escaped + "\";\n";
             }
+            String youtube = appVersion();
+            if (!youtube.isEmpty()) prefix += "window.__youtubeVersion=\"" + youtube + "\";\n";
             cachedScript = prefix + TvScriptsPayload.SCRIPT;
         }
         return cachedScript;
+    }
+
+    /** versionName of the installed app (YouTube for Android TV), shown in Settings > Acerca de. */
+    private static String appVersion() {
+        try {
+            android.app.Application app = (android.app.Application) Class.forName("android.app.ActivityThread")
+                    .getMethod("currentApplication").invoke(null);
+            if (app == null) return "";
+            String name = app.getPackageManager().getPackageInfo(app.getPackageName(), 0).versionName;
+            return name == null ? "" : name.replaceAll("[^0-9A-Za-z._-]", "");
+        } catch (Throwable t) {
+            return "";
+        }
     }
 
     /** The only long field of WebContentsImpl holds the native pointer (its name is obfuscated). */

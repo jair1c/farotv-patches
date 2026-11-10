@@ -25,8 +25,8 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
     Comentarios, Preguntar (IA), Guardar, Súper gracias, Denunciar y Estadísticas, y la fila de videos relacionados.
   - Las opciones que necesitan reiniciar muestran el diálogo propio de YouTube con el botón **Reiniciar**.
 - **Marca FaroTV**: nombre, icono, banner de Android TV, logo dentro de la app, pantalla de inicio (splash) propia,
-  color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.) y una
-  tarjeta FaroTV en lugar de "Obtener YouTube Premium" al inicio de la Configuración.
+  color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.) (y se oculta "Obtener YouTube Premium").
+  En "Acerca de" se ocultan "Ayuda" y "Enviar comentarios" y se muestran el autor y la versión de FaroTV Parches.
 - **Instalador de MicroG-RE**: si falta, la app lo avisa con un panel al estilo de YouTube TV y lo descarga e instala
   desde GitHub (MorpheApp/MicroG-RE, versión oficial sin cambios). Al terminar, el botón "Reiniciar la app" la vuelve
   a abrir.
@@ -52,7 +52,7 @@ Este repositorio **no** distribuye el APK de YouTube, ni original ni parcheado.
 ## 🩹 Lista de parches
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.0](https://github.com/jair1c/farotv-patches/releases/tag/v1.2.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
+> **[v1.3.0-dev.3](https://github.com/jair1c/farotv-patches/releases/tag/v1.3.0-dev.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
 <details open>
 <summary>📦 YouTube for Android TV&nbsp;&nbsp;•&nbsp;&nbsp;6 patches</summary>
 <br>

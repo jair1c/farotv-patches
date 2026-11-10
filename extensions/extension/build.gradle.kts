@@ -17,11 +17,15 @@ abstract class GenerateTvScriptsPayload : DefaultTask() {
     @get:OutputDirectory
     abstract val outputDirectory: DirectoryProperty
 
+    @get:Input
+    abstract val version: Property<String>
+
     @TaskAction
     fun generate() {
         val files = scripts.get().asFile.listFiles { f -> f.name.endsWith(".js") }!!
             .sortedWith(compareBy({ it.name != "runtime.js" }, { it.name }))
-        val lines = files.flatMap { file ->
+        // The bundle version, shown in Settings > Acerca de.
+        val lines = listOf("window.__farotvVersion = \"${version.get()}\";") + files.flatMap { file ->
             listOf("// ---- ${file.name}") + file.readText(Charsets.UTF_8).lines()
         }
         // Non-ASCII characters (accents in the Spanish texts) become \uXXXX escapes, so the
@@ -52,6 +56,7 @@ androidComponents.onVariants { variant ->
         "generate${variant.name.replaceFirstChar { it.uppercaseChar() }}TvScriptsPayload"
     ) {
         scripts.set(layout.projectDirectory.dir("src/main/js"))
+        version.set(project.version.toString())
     }
     variant.sources.java?.addGeneratedSourceDirectory(task, GenerateTvScriptsPayload::outputDirectory)
 }

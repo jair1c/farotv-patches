@@ -1,3 +1,21 @@
+## [1.3.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.3.0-dev.2...v1.3.0-dev.3) (2026-11-10)
+
+### ✨ New Features
+
+* Hide "Obtener YouTube Premium"; the About item shows the installed versions and active features ([d0363a9](https://github.com/jair1c/farotv-patches/commit/d0363a90c8ffbefb24a2740146454174c25b696e))
+
+## [1.3.0-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.3.0-dev.1...v1.3.0-dev.2) (2026-11-10)
+
+### ✨ New Features
+
+* FaroTV Parches author and version in "Acerca de", without Help and Feedback ([8e4935d](https://github.com/jair1c/farotv-patches/commit/8e4935d745f64c024d23be167aee7c92395684cd))
+
+## [1.3.0-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.2.0...v1.3.0-dev.1) (2026-11-10)
+
+### ✨ New Features
+
+* Pictures for the FaroTV Parches settings, in YouTube TV's style ([6db8fcb](https://github.com/jair1c/farotv-patches/commit/6db8fcb828e7fc8c8ab6f53bca6fa097e06b327a))
+
 ## [1.2.0](https://github.com/jair1c/farotv-patches/compare/v1.1.1...v1.2.0) (2026-11-10)
 
 ### ✨ New Features

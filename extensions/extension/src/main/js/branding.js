@@ -130,7 +130,7 @@
             "ytlr-logo-entity ytlr-thumbnail-details, ytlr-logo-entity " + WORDMARK + " {" + image +
             " background-position: right center !important; }\n" +
             // The Premium card keeps its gstatic thumbnail URL (a data: URL there is not drawn).
-            '[style*="yt_logo_premium_landing_page"] { background-image: url("' + iconUrl + '") !important;' +
+            '[style*="yt_logo_premium_landing_page"], [style*="farotv=brand"] { background-image: url("' + iconUrl + '") !important;' +
             " background-size: contain !important; background-repeat: no-repeat !important;" +
             " background-position: center !important; background-color: transparent !important; }");
         document.adoptedStyleSheets = document.adoptedStyleSheets.concat([sheet]);
