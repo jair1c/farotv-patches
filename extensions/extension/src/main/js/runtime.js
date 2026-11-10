@@ -275,14 +275,41 @@
             if (registry) registerSetting(setting);
         });
 
-        features.push({
+        var feature = {
             id: id,
             definition: definition,
             enabled: function () { return readSetting(master); },
             settings: {
                 get: function (key) { return extras[key] ? readSetting(extras[key]) : undefined; }
             }
-        });
+        };
+        features.push(feature);
+        return feature;
+    }
+
+    // ---- network ------------------------------------------------------------------------------
+    // The page's Content Security Policy blocks requests to other sites, so the app's Java side
+    // makes them (TvScripts.onTitle sees "@req <id> <url>", only for an allow-list of hosts) and
+    // hands the answer back through youtv.deliver(id, status, body).
+    var pending = {};
+    var nextRequest = 1;
+
+    function request(url, callback) {
+        var id = nextRequest++;
+        pending[id] = callback;
+        report("@req " + id + " " + url);
+        setTimeout(function () { delete pending[id]; }, 60000);
+    }
+
+    function deliver(id, status, body) {
+        var callback = pending[id];
+        delete pending[id];
+        if (!callback) return;
+        try {
+            callback(status, body);
+        } catch (e) {
+            report("request " + id + " callback failed: " + e);
+        }
     }
 
     // ---- response hook ------------------------------------------------------------------------
@@ -310,6 +337,8 @@
         report: report,
         rawParse: parse,
         feature: defineFeature,
+        request: request,
+        deliver: deliver,
         status: function () {
             return {
                 registry: !!registry,

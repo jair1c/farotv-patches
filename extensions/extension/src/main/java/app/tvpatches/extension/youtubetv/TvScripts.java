@@ -43,11 +43,21 @@ public final class TvScripts {
     /** The script logs by setting document.title to "tvp:<message>". */
     public static void onTitle(String title) {
         if (title != null && title.startsWith(LOG_PREFIX)) {
-            Log.i(TAG, title.substring(LOG_PREFIX.length()));
+            String message = title.substring(LOG_PREFIX.length());
+            if (message.startsWith(NetBridge.REQUEST_PREFIX)) {
+                NetBridge.handle(message);
+            } else {
+                Log.i(TAG, message);
+            }
         }
     }
 
     private static boolean inject() {
+        return evaluate(script());
+    }
+
+    /** Runs JavaScript in the page. Call on the main thread. */
+    static boolean evaluate(String javaScript) {
         try {
             Object contents = webContents;
             if (contents == null) return false;
@@ -66,7 +76,7 @@ public final class TvScripts {
                 return false;
             }
 
-            evaluateJavaScript.invoke(null, pointer, script(), null);
+            evaluateJavaScript.invoke(null, pointer, javaScript, null);
             return true;
         } catch (Throwable t) {
             Log.w(TAG, "script injection failed", t);

@@ -16,6 +16,8 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
 - **Sección "FaroTV Parches" dentro de los Ajustes de YouTube** (y se oculta "Compras y membresías"), con interruptores:
   - Bloquear anuncios (de video y los videos "Patrocinado" de Inicio).
   - Ocultar las promociones de YouTube Premium.
+  - SponsorBlock: salta los patrocinios, la autopromoción y los recordatorios de suscripción (y, si los activas,
+    intros, créditos, avances, relleno y partes sin música), con un aviso "Se omitió" en pantalla.
   - Ocultar Shorts.
   - Ocultar las pestañas temáticas (Videojuegos, Noticias, Deportes…).
   - Personalizar el reproductor: ocultar los botones Canal, Descripción, Suscribirse, Me gusta / No me gusta,
