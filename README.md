@@ -27,6 +27,7 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
 - **Marca FaroTV**: nombre, icono, banner de Android TV, logo dentro de la app, pantalla de inicio (splash) propia,
   color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.) y una
   tarjeta FaroTV en lugar de "Obtener YouTube Premium" al inicio de la Configuración.
+  En "Acerca de" se ocultan "Ayuda" y "Enviar comentarios" y se muestran el autor y la versión de FaroTV Parches.
 - **Instalador de MicroG-RE**: si falta, la app lo avisa con un panel al estilo de YouTube TV y lo descarga e instala
   desde GitHub (MorpheApp/MicroG-RE, versión oficial sin cambios). Al terminar, el botón "Reiniciar la app" la vuelve
   a abrir.

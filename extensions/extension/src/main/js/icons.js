@@ -66,9 +66,23 @@
             '<path d="M108 88 H126"' + STROKE + 'stroke="' + C + '" stroke-width="4"/>' + doodle(12, 96, R) + star(120, 18, T)
     };
 
+    // Author picture for Settings > Acerca de: the black cat, in a FaroTV amber ring.
+    function eye(cx, flip) {
+        var s = flip ? -1 : 1;
+        // Lid slanted down towards the nose (inner side, -x before flipping): an annoyed look.
+        return '<g transform="translate(' + cx + ' 50) scale(' + (0.78 * s) + ' 0.78)">' +
+            '<ellipse cx="0" cy="2" rx="14" ry="11" fill="#FFFFFF"/>' +
+            '<circle cx="-3" cy="5" r="6" fill="#000"/><circle cx="-1" cy="3" r="1.8" fill="#FFF"/>' +
+            '<path d="M-18 4 L18 -6 L18 -14 L-18 -14 Z" fill="#000"/></g>';
+    }
+    ICONS.creator = '<circle cx="72" cy="54" r="49" fill="#FFB43A"/>' +
+        '<circle cx="72" cy="54" r="44.5" fill="#1b1b1b"/><circle cx="72" cy="54" r="43" fill="#000"/>' +
+        eye(57, true) + eye(87, false);
+
     function url(name) {
         return "data:image/svg+xml," + encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 108">' + ICONS[name] + '</svg>');
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (name === "creator" ? "21 3 102 102" : "0 0 144 108") + '">' +
+            ICONS[name] + '</svg>');
     }
 
     var rules = Object.keys(ICONS).map(function (name) {

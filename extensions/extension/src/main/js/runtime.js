@@ -174,11 +174,67 @@
     // - "Compras y membresias" (itemId MANAGE_PURCHASES_AND_MEMBERSHIPS*) is removed;
     // - with "Custom branding", the "Obtener YouTube Premium" card (itemId PREMIUM_LANDING_PAGE*)
     //   becomes an app card whose button jumps to our section.
+    // "Acerca de": "Ayuda" (ABOUT_HELP) and "Enviar comentarios" (the action item whose command
+    // is a feedback one) are removed, and two items about the bundle and its author go first.
+    var GSTATIC_PICTURE = "https://www.gstatic.com/ytlr/img/autoplay.png?farotv=";
+
+    function adjustAbout(category) {
+        var items = category.items;
+        for (var i = items.length - 1; i >= 0; i--) {
+            var item = items[i] || {};
+            var readOnly = item.settingReadOnlyItemRenderer;
+            var action = item.settingActionRenderer;
+            if ((readOnly && readOnly.itemId === "ABOUT_HELP") ||
+                (action && !action.itemId && /feedback/i.test(JSON.stringify(action.serviceEndpoint || action)))) {
+                items.splice(i, 1);
+            }
+        }
+        if (items.some(function (item) { return item.settingActionRenderer && item.settingActionRenderer.itemId === "FAROTV_CREATOR"; })) return;
+        var section = sectionTitle();
+        var version = window.__farotvVersion ? " " + window.__farotvVersion : "";
+        var repository = { confirmDialogEndpoint: { content: { confirmDialogRenderer: {
+            title: runs(section + version),
+            dialogMessages: [
+                runs("Código, novedades y descargas:"),
+                runs("github.com/jair1c/farotv-patches"),
+                runs("También está en morphe-patches.software, para instalarlo con Morphe Manager.")
+            ],
+            confirmButton: { buttonRenderer: { style: "STYLE_PRIMARY", text: runs("Cerrar"),
+                serviceEndpoint: CLOSE_POPUP, command: CLOSE_POPUP } }
+        } } } };
+        function button(text) {
+            return { buttonRenderer: { text: runs(text), serviceEndpoint: repository, command: repository } };
+        }
+        items.unshift(
+            { settingActionRenderer: {
+                itemId: "FAROTV_CREATOR",
+                title: runs("Gabriel Jair"),
+                summary: runs("Creador de " + section + ". YouTube. A tu manera."),
+                thumbnail: { thumbnails: [{ url: GSTATIC_PICTURE + "creator" }] },
+                serviceEndpoint: repository,
+                actionButton: button("github.com/jair1c")
+            } },
+            { settingActionRenderer: {
+                itemId: "FAROTV_ABOUT",
+                title: runs(section + version),
+                summary: runs("Android TV · Parches de Morphe para YouTube 7.32.300: sin anuncios, " +
+                    "SponsorBlock, Return YouTube Dislike y más. Creado por Gabriel Jair. " +
+                    "YouTube, los videos, imágenes y marcas pertenecen a Google y a sus respectivos titulares."),
+                thumbnail: { thumbnails: [{ url: GSTATIC_PICTURE + "brand" }] },
+                serviceEndpoint: repository,
+                actionButton: button("Ver el repositorio")
+            } });
+    }
+
     function adjustYouTubeCategories(items) {
         var name = window.__youtvBranding;
         for (var i = 0; i < items.length; i++) {
             var category = items[i] && items[i].settingCategoryCollectionRenderer;
             if (!category || !Array.isArray(category.items)) continue;
+            if (category.categoryId === "SETTING_CAT_TVHTML5_ABOUT") {
+                adjustAbout(category);
+                continue;
+            }
             for (var j = category.items.length - 1; j >= 0; j--) {
                 var item = category.items[j];
                 var card = item && item.settingActionRenderer;
@@ -215,7 +271,7 @@
     function settingThumbnail(setting) {
         var icon = (setting.extra && icons[setting.feature + "." + setting.extra]) || icons[setting.feature];
         if (!icon) return undefined;
-        return { thumbnails: [{ url: "https://www.gstatic.com/ytlr/img/autoplay.png?farotv=" + icon }] };
+        return { thumbnails: [{ url: GSTATIC_PICTURE + icon }] };
     }
 
     function injectSettingsCategory(response) {
