@@ -45,7 +45,7 @@ Este repositorio **no** distribuye el APK de YouTube, ni original ni parcheado.
 ## 🩹 Lista de parches
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.0-dev.1](https://github.com/jair1c/farotv-patches/releases/tag/v1.1.0-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
+> **[v1.1.0-dev.2](https://github.com/jair1c/farotv-patches/releases/tag/v1.1.0-dev.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
 <details open>
 <summary>📦 YouTube for Android TV&nbsp;&nbsp;•&nbsp;&nbsp;5 patches</summary>
 <br>
