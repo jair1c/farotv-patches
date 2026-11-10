@@ -25,6 +25,8 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
 - **Instalador de MicroG-RE**: si falta, la app lo avisa con un panel al estilo de YouTube TV y lo descarga e instala
   desde GitHub (MorpheApp/MicroG-RE, versión oficial sin cambios). Al terminar, el botón "Reiniciar la app" la vuelve
   a abrir.
+- **Arranque más ligero**: la app (y con ella MicroG-RE) ya no se abre sola en segundo plano cada vez que se enciende
+  el TV, lo que en televisores con 1 GB de RAM retrasaba el arranque.
 - **Spoof device** (desactivado por defecto): hace pasar el TV por un Chromecast, para televisores que YouTube
   marca como "no compatibles".
 
