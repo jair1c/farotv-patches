@@ -1,3 +1,9 @@
+## [1.1.0-dev.4](https://github.com/jair1c/farotv-patches/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2026-11-10)
+
+### ✨ New Features
+
+* Do not start the app in the background when the TV is switched on ([c455c00](https://github.com/jair1c/farotv-patches/commit/c455c0084e9eb09c7d2c6f72df44f935987be9d5))
+
 ## [1.1.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2026-11-10)
 
 ### ✨ New Features
