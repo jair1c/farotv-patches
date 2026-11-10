@@ -256,9 +256,11 @@
                 continue;
             }
             for (var j = category.items.length - 1; j >= 0; j--) {
+                // Signed out these are settingActionRenderer; signed in, "Compras y membresias"
+                // is a settingsPaneRenderer (QR code). The itemId is the same in both.
                 var item = category.items[j];
-                var card = item && item.settingActionRenderer;
-                if (!card) continue;
+                var card = item && item[Object.keys(item)[0]];
+                if (!card || typeof card !== "object") continue;
                 var itemId = card.itemId || "";
                 if (/^MANAGE_PURCHASES_AND_MEMBERSHIPS/.test(itemId)) {
                     category.items.splice(j, 1);
