@@ -1,4 +1,4 @@
-// Branding: replaces the YouTube wordmark at the top of the screen with the app's own (FaroTV by
+// Branding: replaces the YouTube wordmark (top bar, sign-in screen) with the app's own (FaroTV by
 // default). Only active when the "Custom branding" patch set window.__youtvBranding to the app name.
 // The wordmark is an element whose inline style sets a gstatic image as background; a constructed
 // stylesheet (the page's CSP blocks <style> elements) overrides it with !important.
@@ -113,11 +113,17 @@
 
     try {
         var sheet = new CSSStyleSheet();
-        sheet.replaceSync(
-            "ytlr-logo-entity ytlr-thumbnail-details {" +
+        // Top bar logo (right aligned), and any other YouTube wordmark image, such as the one on
+        // the sign-in screen (left aligned). Both are ytlr-thumbnail-details with the wordmark
+        // from gstatic .../livingroom/youtube/wordmark/... as inline background.
+        var WORDMARK = 'ytlr-thumbnail-details[style*="livingroom/youtube/wordmark"]';
+        var image =
             " background-image: url(\"" + url + "\") !important;" +
             " background-size: contain !important;" +
-            " background-repeat: no-repeat !important;" +
+            " background-repeat: no-repeat !important;";
+        sheet.replaceSync(
+            WORDMARK + " {" + image + " background-position: left center !important; }\n" +
+            "ytlr-logo-entity ytlr-thumbnail-details, ytlr-logo-entity " + WORDMARK + " {" + image +
             " background-position: right center !important; }");
         document.adoptedStyleSheets = document.adoptedStyleSheets.concat([sheet]);
         youtv.report("branding: " + name);
