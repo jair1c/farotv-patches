@@ -1,3 +1,9 @@
+## [1.1.1-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.1.0...v1.1.1-dev.1) (2026-11-10)
+
+### 🐛 Bug Fixes
+
+* Mark YouTube 7.32.300 as a stable target for Android TV ([fb22cb7](https://github.com/jair1c/farotv-patches/commit/fb22cb70565ea21ff7f2a2196fdc7f0cdca598a0))
+
 ## [1.1.0](https://github.com/jair1c/farotv-patches/compare/v1.0.0...v1.1.0) (2026-11-10)
 
 ### ✨ New Features

@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0",
+  "version": "1.1.1-dev.1",
   "patches": [
     {
       "name": "Clone app",
@@ -55,12 +55,12 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "MOBILE",
+          "formFactor": "TV",
           "targets": [
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -96,12 +96,12 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "MOBILE",
+          "formFactor": "TV",
           "targets": [
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -125,12 +125,12 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "MOBILE",
+          "formFactor": "TV",
           "targets": [
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -154,12 +154,12 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "MOBILE",
+          "formFactor": "TV",
           "targets": [
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -183,12 +183,12 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "MOBILE",
+          "formFactor": "TV",
           "targets": [
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -212,12 +212,12 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "MOBILE",
+          "formFactor": "TV",
           "targets": [
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
