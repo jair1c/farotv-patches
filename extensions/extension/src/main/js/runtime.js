@@ -165,28 +165,41 @@
 
     // The Settings response is items[] of settingCategoryCollectionRenderer. Ours goes right after
     // the first category, and only once the registry is patched (so every switch can be stored).
-    // With "Custom branding", the "Obtener YouTube Premium" card (first item of the first category,
-    // itemId PREMIUM_LANDING_PAGE*, sent by the server) becomes an app card whose button jumps to
-    // the app's own settings.
-    function brandPremiumCard(items) {
+    // Title of our settings section: "<app name> Parches" ("FaroTV Parches").
+    function sectionTitle() {
+        return (window.__youtvBranding || "FaroTV") + " Parches";
+    }
+
+    // Changes to YouTube's own first settings category (sent by the server):
+    // - "Compras y membresias" (itemId MANAGE_PURCHASES_AND_MEMBERSHIPS*) is removed;
+    // - with "Custom branding", the "Obtener YouTube Premium" card (itemId PREMIUM_LANDING_PAGE*)
+    //   becomes an app card whose button jumps to our section.
+    function adjustYouTubeCategories(items) {
         var name = window.__youtvBranding;
-        if (!name) return;
         for (var i = 0; i < items.length; i++) {
             var category = items[i] && items[i].settingCategoryCollectionRenderer;
             if (!category || !Array.isArray(category.items)) continue;
-            for (var j = 0; j < category.items.length; j++) {
-                var card = category.items[j] && category.items[j].settingActionRenderer;
-                if (!card || !/^PREMIUM_/.test(card.itemId || "")) continue;
+            for (var j = category.items.length - 1; j >= 0; j--) {
+                var item = category.items[j];
+                var card = item && item.settingActionRenderer;
+                if (!card) continue;
+                var itemId = card.itemId || "";
+                if (/^MANAGE_PURCHASES_AND_MEMBERSHIPS/.test(itemId)) {
+                    category.items.splice(j, 1);
+                    report("settings: purchases and memberships hidden");
+                    continue;
+                }
+                if (!name || !/^PREMIUM_/.test(itemId)) continue;
                 var open = settings.length
                     ? { applicationSettingsEndpoint: { itemId: settings[0].key } }
                     : CLOSE_POPUP;
-                card.title = runs(name);
+                card.title = runs(sectionTitle());
                 card.summary = runs("Sin anuncios, sin Shorts y con el reproductor a tu gusto. " +
-                    "Todo se configura en la sección " + name + ", más abajo.");
+                    "Todo se configura en la sección " + sectionTitle() + ", más abajo.");
                 card.serviceEndpoint = open;
                 var button = card.actionButton && card.actionButton.buttonRenderer;
                 if (button) {
-                    button.text = runs("Ir a la configuración de " + name);
+                    button.text = runs("Ir a " + sectionTitle());
                     button.serviceEndpoint = open;
                     button.command = open;
                 }
@@ -197,7 +210,7 @@
 
     function injectSettingsCategory(response) {
         var items = response.items;
-        if (Array.isArray(items)) brandPremiumCard(items);
+        if (Array.isArray(items)) adjustYouTubeCategories(items);
         if (!registry || !settings.length || !Array.isArray(items)) return;
         var isSettings = false;
         for (var i = 0; i < items.length; i++) {
@@ -208,7 +221,7 @@
         }
         if (!isSettings) return;
         items.splice(1, 0, { settingCategoryCollectionRenderer: {
-            title: runs("FaroTV"),
+            title: runs(sectionTitle()),
             categoryId: CATEGORY_ID,
             focused: false,
             items: settings.map(function (setting) {

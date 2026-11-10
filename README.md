@@ -13,7 +13,7 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
 
 - **MicroG-RE**: la app funciona sin Google Play Services y se instala junto al YouTube original (otro nombre de
   paquete). Inicio de sesión con código de activación (yt.be/activate).
-- **Sección FaroTV dentro de los Ajustes de YouTube**, con interruptores:
+- **Sección "FaroTV Parches" dentro de los Ajustes de YouTube** (y se oculta "Compras y membresías"), con interruptores:
   - Bloquear anuncios (de video y los videos "Patrocinado" de Inicio).
   - Ocultar las promociones de YouTube Premium.
   - Ocultar Shorts.
