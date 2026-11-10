@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/jair1c/farotv-patches/compare/v1.3.0...v1.4.0) (2026-11-10)
+
+### ✨ New Features
+
+* 20% bigger FaroTV logo on the sign-in (activate) screen ([aff926c](https://github.com/jair1c/farotv-patches/commit/aff926c1bf18e917710bc28d2a4acedbc0018240))
+
 ## [1.4.0-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.3.0...v1.4.0-dev.1) (2026-11-10)
 
 ### ✨ New Features
