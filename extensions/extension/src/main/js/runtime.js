@@ -208,6 +208,16 @@
         }
     }
 
+    // Pictures of our switches (icons.js): a gstatic picture tagged "?farotv=<icon>" that a
+    // stylesheet replaces. Sub-switches use their feature's icon unless they have their own.
+    var icons = {};
+    function setIcons(map) { icons = map || {}; }
+    function settingThumbnail(setting) {
+        var icon = (setting.extra && icons[setting.feature + "." + setting.extra]) || icons[setting.feature];
+        if (!icon) return undefined;
+        return { thumbnails: [{ url: "https://www.gstatic.com/ytlr/img/autoplay.png?farotv=" + icon }] };
+    }
+
     function injectSettingsCategory(response) {
         var items = response.items;
         if (Array.isArray(items)) adjustYouTubeCategories(items);
@@ -226,6 +236,7 @@
             focused: false,
             items: settings.map(function (setting) {
                 return { settingBooleanRenderer: {
+                    thumbnail: settingThumbnail(setting),
                     title: runs(setting.title),
                     summary: runs(setting.summary || ""),
                     enableServiceEndpoint: settingCommand(setting, true),
@@ -251,6 +262,7 @@
         }
 
         var master = {
+            feature: id,
             key: settingKey(id),
             title: definition.name || id,
             summary: definition.summary,
@@ -261,6 +273,8 @@
         var own = [master];
         (definition.settings || []).forEach(function (extra) {
             var setting = {
+                feature: id,
+                extra: extra.key,
                 key: settingKey(id, extra.key),
                 title: extra.title || extra.key,
                 summary: extra.summary,
@@ -338,6 +352,7 @@
         rawParse: parse,
         feature: defineFeature,
         request: request,
+        setIcons: setIcons,
         deliver: deliver,
         status: function () {
             return {
