@@ -1,3 +1,9 @@
+## [1.1.1-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.1.1-dev.1...v1.1.1-dev.2) (2026-11-10)
+
+### 🐛 Bug Fixes
+
+* Apply the patches again on morphe-desktop ([8b1c139](https://github.com/jair1c/farotv-patches/commit/8b1c1397a7891126f61f0a327861807bae638712))
+
 ## [1.1.1-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.1.0...v1.1.1-dev.1) (2026-11-10)
 
 ### 🐛 Bug Fixes

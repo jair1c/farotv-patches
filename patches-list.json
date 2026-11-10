@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.1-dev.1",
+  "version": "1.1.1-dev.2",
   "patches": [
     {
       "name": "Clone app",
@@ -55,7 +55,7 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "TV",
+          "formFactor": "MOBILE",
           "targets": [
             {
               "version": "7.32.300",
@@ -96,7 +96,7 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "TV",
+          "formFactor": "MOBILE",
           "targets": [
             {
               "version": "7.32.300",
@@ -125,7 +125,7 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "TV",
+          "formFactor": "MOBILE",
           "targets": [
             {
               "version": "7.32.300",
@@ -154,7 +154,7 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "TV",
+          "formFactor": "MOBILE",
           "targets": [
             {
               "version": "7.32.300",
@@ -183,7 +183,7 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "TV",
+          "formFactor": "MOBILE",
           "targets": [
             {
               "version": "7.32.300",
@@ -212,7 +212,7 @@
           "signatures": [
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
           ],
-          "formFactor": "TV",
+          "formFactor": "MOBILE",
           "targets": [
             {
               "version": "7.32.300",
