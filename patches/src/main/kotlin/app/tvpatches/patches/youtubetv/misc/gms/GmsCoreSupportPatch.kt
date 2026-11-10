@@ -2,6 +2,8 @@ package app.tvpatches.patches.youtubetv.misc.gms
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.patch.patch
+import app.morphe.patcher.patch.resourcePatch
+import app.morphe.patcher.patch.resourceXml
 import app.morphe.patcher.string
 import app.tvpatches.patches.shared.gms.gmsCoreSupportPatch
 import app.tvpatches.patches.shared.gms.gmsCoreSupportResourcePatch
@@ -54,6 +56,22 @@ val runWithoutPlayServicesPatch = playServicesBypassPatch(
 }
 
 /**
+ * Lets the "MicroG-RE no está instalado" dialog download and install MicroG-RE
+ * (PackageInstaller needs REQUEST_INSTALL_PACKAGES).
+ */
+private val installPackagesPermissionPatch = resourcePatch {
+    execute {
+        resourceXml("AndroidManifest.xml").use { manifest ->
+            val permission = "android.permission.REQUEST_INSTALL_PACKAGES"
+            val exists = manifest.root.children("uses-permission").any { it.attribute("android:name") == permission }
+            if (!exists) {
+                manifest.root.appendChild("uses-permission") { setAttribute("android:name", permission) }
+            }
+        }
+    }
+}
+
+/**
  * Optional: redirect Play Services calls to MicroG-RE.
  */
 @Suppress("unused")
@@ -72,4 +90,5 @@ val gmsCoreSupportPatch = gmsCoreSupportPatch(
     },
 ) {
     compatibleWith(COMPATIBILITY_YOUTUBE_TV)
+    dependsOn(installPackagesPermissionPatch)
 }

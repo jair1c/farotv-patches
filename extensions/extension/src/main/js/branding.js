@@ -1,4 +1,4 @@
-// Branding: replaces the YouTube wordmark at the top of the screen with the app's own (FaroTV by
+// Branding: replaces the YouTube wordmark (top bar, sign-in screen) with the app's own (FaroTV by
 // default). Only active when the "Custom branding" patch set window.__youtvBranding to the app name.
 // The wordmark is an element whose inline style sets a gstatic image as background; a constructed
 // stylesheet (the page's CSP blocks <style> elements) overrides it with !important.
@@ -44,13 +44,86 @@
         '</text></svg>';
     var url = "data:image/svg+xml," + encodeURIComponent(svg);
 
+    // ---- accent colour ------------------------------------------------------------------------
+    // YouTube TV's red (#f03, and the #f03 -> #ff2791 gradient of progress bars) becomes FaroTV
+    // amber. The class names are minified and change between versions, so the page's own style
+    // rules are scanned and the red ones are repeated with the new colours in a later sheet.
+    var RED = /rgba?\(225, 0, 45(?:, [0-9.]+)?\)|rgb\(255, 0, 51\)|rgb\(255, 0, 0\)|rgb\(255, 39, 145\)|#ff0033\b|#f03\b|#ff0000\b|#f00\b|#ff2791\b/gi;
+    function amber(value) {
+        return value.replace(RED, function (m) {
+            if (/39, 145|2791/i.test(m)) return "#FF9F1C";
+            var alpha = /225, 0, 45, ([0-9.]+)/.exec(m);
+            return alpha ? "rgba(255, 180, 58, " + alpha[1] + ")" : "#FFB43A";
+        });
+    }
+    var accent = new CSSStyleSheet();
+    var seenRules = {};
+    var accentRules = [];
+    function collect(rules) {
+        for (var i = 0; i < rules.length; i++) {
+            var rule = rules[i];
+            if (rule.cssRules && !rule.selectorText) {
+                collect(rule.cssRules);
+                continue;
+            }
+            if (!rule.style || !rule.selectorText) continue;
+            var css = rule.style.cssText;
+            RED.lastIndex = 0;
+            if (!RED.test(css) || seenRules[rule.selectorText + css]) continue;
+            seenRules[rule.selectorText + css] = true;
+            var decls = [];
+            for (var j = 0; j < rule.style.length; j++) {
+                var prop = rule.style[j];
+                var value = rule.style.getPropertyValue(prop);
+                RED.lastIndex = 0;
+                if (!RED.test(value)) continue;
+                decls.push(prop + ": " + amber(value) + " !important");
+            }
+            if (decls.length) accentRules.push(rule.selectorText + " { " + decls.join("; ") + " }");
+        }
+    }
+    var lastSheetCount = -1;
+    function recolor() {
+        var sheets = document.styleSheets;
+        if (sheets.length === lastSheetCount) return;
+        lastSheetCount = sheets.length;
+        var before = accentRules.length;
+        for (var i = 0; i < sheets.length; i++) {
+            try { collect(sheets[i].cssRules); } catch (e) {}
+        }
+        if (accentRules.length !== before) {
+            try {
+                accent.replaceSync(accentRules.join("\n"));
+                youtv.report("branding: " + accentRules.length + " red rule(s) recoloured");
+            } catch (e) {
+                youtv.report("branding: recolour failed: " + e);
+            }
+        }
+    }
+    try {
+        document.adoptedStyleSheets = document.adoptedStyleSheets.concat([accent]);
+    } catch (e) {}
+    recolor();
+    // YouTube loads more stylesheets as you move around; check again for a while.
+    var checks = 0;
+    var recolorTimer = setInterval(function () {
+        recolor();
+        if (++checks > 120) clearInterval(recolorTimer);
+    }, 2000);
+
     try {
         var sheet = new CSSStyleSheet();
-        sheet.replaceSync(
-            "ytlr-logo-entity ytlr-thumbnail-details {" +
+        // Top bar logo (right aligned), and any other YouTube wordmark image, such as the one on
+        // the sign-in screen (left aligned). Both are ytlr-thumbnail-details with the wordmark
+        // from gstatic .../livingroom/youtube/wordmark/... as inline background.
+        var WORDMARK = 'ytlr-thumbnail-details[style*="livingroom/youtube/wordmark"]';
+        var image =
             " background-image: url(\"" + url + "\") !important;" +
             " background-size: contain !important;" +
-            " background-repeat: no-repeat !important;" +
+            " background-repeat: no-repeat !important;";
+        sheet.replaceSync(
+            WORDMARK + " {" + image + " background-position: left center !important; }\n" +
+            "ytlr-logo-entity ytlr-thumbnail-details, ytlr-logo-entity " + WORDMARK + " {" + image +
             " background-position: right center !important; }");
         document.adoptedStyleSheets = document.adoptedStyleSheets.concat([sheet]);
         youtv.report("branding: " + name);

@@ -48,3 +48,13 @@ parchean su propio APK de YouTube TV. **Nunca se distribuye el APK de Google**, 
 - "Spoof device" viene desactivado por defecto.
 - Los parches solo están probados con la versión **7.32.300**. Hay que declararlo así en `compatibleWith` (ya está) y
   en el README.
+
+## Estado (2026-11-10)
+
+- Repositorio público: https://github.com/jair1c/farotv-patches
+- Versiones: `v1.0.0-dev.1` (prueba) y `v1.0.0` (estable, "Latest"), con `.mpp` firmado.
+- Commits con el correo privado de GitHub (`197553077+jair1c@users.noreply.github.com`). El historial se reescribió
+  una vez para quitar el correo personal; las notas de semantic-release se movieron a los commits nuevos.
+- Enviado al índice de morphe-patches.software el 2026-11-10 (sin correo). El formulario detectó los 6 parches.
+  Queda pendiente de revisión por los mantenedores del índice.
+- Pendiente: probar la instalación desde Morphe Manager añadiendo el repositorio como fuente.
