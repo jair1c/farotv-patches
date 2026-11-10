@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-11-10T15:35:01",
-  "description": "## [1.2.0-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2026-11-10)\n\n### ✨ New Features\n\n* Name the settings section \"FaroTV Parches\" and hide \"Compras y membresías\" ([e7c10bd](https://github.com/jair1c/farotv-patches/commit/e7c10bd02d982239c4d48417b44ebe5ca2fde362))\n* SponsorBlock ([dbe60e7](https://github.com/jair1c/farotv-patches/commit/dbe60e7d361988d807423c37226dcf66d4676938))",
-  "download_url": "https://github.com/jair1c/farotv-patches/releases/download/v1.2.0-dev.2/patches-1.2.0-dev.2.mpp",
+  "created_at": "2026-11-10T15:46:10",
+  "description": "## [1.2.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2026-11-10)\n\n### ✨ New Features\n\n* Return YouTube Dislike ([3cfe5c1](https://github.com/jair1c/farotv-patches/commit/3cfe5c157d871a91284471fbdcb33799a2652218))",
+  "download_url": "https://github.com/jair1c/farotv-patches/releases/download/v1.2.0-dev.3/patches-1.2.0-dev.3.mpp",
   "signature_download_url": "",
-  "version": "1.2.0-dev.2",
+  "version": "1.2.0-dev.3",
   "public_key": "B+w9LCwCheqTn0XZycE7F2wZPc5CBoaYxCExWOrB0sg="
 }

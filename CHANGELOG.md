@@ -1,3 +1,9 @@
+## [1.2.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2026-11-10)
+
+### ✨ New Features
+
+* Return YouTube Dislike ([3cfe5c1](https://github.com/jair1c/farotv-patches/commit/3cfe5c157d871a91284471fbdcb33799a2652218))
+
 ## [1.2.0-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2026-11-10)
 
 ### ✨ New Features
