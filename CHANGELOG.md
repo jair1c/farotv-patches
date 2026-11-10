@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/jair1c/farotv-patches/compare/v1.4.0...v1.4.1) (2026-11-10)
+
+### 🐛 Bug Fixes
+
+* Also hide "Compras y membresías" when signed in ([0acad71](https://github.com/jair1c/farotv-patches/commit/0acad71ae229bef9c9da74cb9b3db03b5ad9ec45))
+
 ## [1.4.1-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.4.0...v1.4.1-dev.1) (2026-11-10)
 
 ### 🐛 Bug Fixes
