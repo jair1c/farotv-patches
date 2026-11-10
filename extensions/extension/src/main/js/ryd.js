@@ -46,9 +46,14 @@
         name: "Mostrar los “No me gusta”",
         summary: "Muestra cuántos “No me gusta” tiene el video (estimado por Return YouTube Dislike)",
         defaultEnabled: true,
-        onResponse: function (response) {
+        onResponse: function (response, settings, text) {
             if (!response.transportControls && !response.contents && !response.frameworkUpdates) return;
-            var buttons = findLikeButtons(response, 0, []);
+            if (!youtv.mentions(text, ["likeButtonRenderer"])) return;
+            // The like button is one of the player controls (/next); only other responses are walked.
+            var controls = response.transportControls && response.transportControls.transportControlsRenderer;
+            var buttons = controls
+                ? findLikeButtons([controls.promotedActions, controls.engagementActions, controls.settingActions], 0, [])
+                : findLikeButtons(response, 0, []);
             buttons.forEach(function (renderer) {
                 if (renderer.hideDislikeButton) return;
                 var id = renderer.target.videoId;

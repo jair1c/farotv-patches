@@ -40,7 +40,8 @@
         summary: "Quita las filas de Shorts y la entrada Shorts del menú (el menú cambia al reiniciar la app)",
         defaultEnabled: true,
         restart: true,
-        onResponse: function (response) {
+        onResponse: function (response, settings, text) {
+            if (!youtv.mentions(text, ["reelWatchEndpoint", "TVHTML5_SHELF_RENDERER_TYPE_SHORTS"])) return;
             var removed = removeShorts(response, 0);
             if (removed) youtv.report("shorts: removed " + removed + " item(s)");
         }
