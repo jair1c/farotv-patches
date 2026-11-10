@@ -1,3 +1,9 @@
+## [1.1.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2026-11-10)
+
+### ✨ New Features
+
+* FaroTV logo on the sign-in screen ([15241af](https://github.com/jair1c/farotv-patches/commit/15241af7ca0cbf6dfe65d01e86b32067a5f63e3f))
+
 ## [1.1.0-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2026-11-10)
 
 ### 🐛 Bug Fixes
