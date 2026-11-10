@@ -1,3 +1,12 @@
+## [1.2.0](https://github.com/jair1c/farotv-patches/compare/v1.1.1...v1.2.0) (2026-11-10)
+
+### ✨ New Features
+
+* FaroTV card instead of the YouTube Premium offer, and hide Premium promotions ([5469a25](https://github.com/jair1c/farotv-patches/commit/5469a25bd831fa286d3c1df3ce71c1e4fbf4c2fa))
+* Name the settings section "FaroTV Parches" and hide "Compras y membresías" ([e7c10bd](https://github.com/jair1c/farotv-patches/commit/e7c10bd02d982239c4d48417b44ebe5ca2fde362))
+* Return YouTube Dislike ([3cfe5c1](https://github.com/jair1c/farotv-patches/commit/3cfe5c157d871a91284471fbdcb33799a2652218))
+* SponsorBlock ([dbe60e7](https://github.com/jair1c/farotv-patches/commit/dbe60e7d361988d807423c37226dcf66d4676938))
+
 ## [1.2.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2026-11-10)
 
 ### ✨ New Features
