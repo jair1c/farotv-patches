@@ -1,3 +1,9 @@
+## [1.3.0-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.3.0-dev.1...v1.3.0-dev.2) (2026-11-10)
+
+### ✨ New Features
+
+* FaroTV Parches author and version in "Acerca de", without Help and Feedback ([8e4935d](https://github.com/jair1c/farotv-patches/commit/8e4935d745f64c024d23be167aee7c92395684cd))
+
 ## [1.3.0-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.2.0...v1.3.0-dev.1) (2026-11-10)
 
 ### ✨ New Features
