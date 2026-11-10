@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0",
+  "version": "1.1.1-dev.2",
   "patches": [
     {
       "name": "Clone app",
@@ -60,7 +60,7 @@
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -101,7 +101,7 @@
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -130,7 +130,7 @@
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -159,7 +159,7 @@
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -188,7 +188,7 @@
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
@@ -217,7 +217,7 @@
             {
               "version": "7.32.300",
               "versionCodes": null,
-              "isExperimental": true,
+              "isExperimental": false,
               "minSdk": 24,
               "description": null
             }
