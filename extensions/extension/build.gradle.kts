@@ -20,10 +20,30 @@ abstract class GenerateTvScriptsPayload : DefaultTask() {
     @get:Input
     abstract val version: Property<String>
 
+    // All scripts run as one bundle, so a syntax error in any of them disables every FaroTV feature.
+    // Each file is checked with "node --check" (Node.js is installed in the release workflow);
+    // without Node.js the check is skipped with a warning.
+    private fun checkSyntax(files: List<java.io.File>) {
+        val node = try {
+            ProcessBuilder("node", "--version").redirectErrorStream(true).start().also { it.waitFor() }
+            "node"
+        } catch (e: Exception) {
+            logger.warn("Node.js not found: the scripts in src/main/js are not syntax checked.")
+            return
+        }
+        val errors = files.mapNotNull { file ->
+            val process = ProcessBuilder(node, "--check", file.absolutePath).redirectErrorStream(true).start()
+            val output = process.inputStream.bufferedReader().readText()
+            if (process.waitFor() == 0) null else "${file.name}:\n$output"
+        }
+        if (errors.isNotEmpty()) throw GradleException("JavaScript syntax errors:\n" + errors.joinToString("\n"))
+    }
+
     @TaskAction
     fun generate() {
         val files = scripts.get().asFile.listFiles { f -> f.name.endsWith(".js") }!!
             .sortedWith(compareBy({ it.name != "runtime.js" }, { it.name }))
+        checkSyntax(files)
         // The bundle version, shown in Settings > Acerca de.
         val lines = listOf("window.__farotvVersion = \"${version.get()}\";") + files.flatMap { file ->
             listOf("// ---- ${file.name}") + file.readText(Charsets.UTF_8).lines()
