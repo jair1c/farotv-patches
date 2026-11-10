@@ -1,3 +1,9 @@
+## [1.2.0-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2026-11-10)
+
+### ✨ New Features
+
+* Name the settings section "FaroTV Parches" and hide "Compras y membresías" ([e7c10bd](https://github.com/jair1c/farotv-patches/commit/e7c10bd02d982239c4d48417b44ebe5ca2fde362))
+
 ## [1.2.0-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.1.1...v1.2.0-dev.1) (2026-11-10)
 
 ### ✨ New Features
