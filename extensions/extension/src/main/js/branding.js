@@ -34,6 +34,10 @@
         '<path d="M0 404 C 60 384, 110 424, 170 404 S 280 384, 340 404 S 450 424, 512 404 L512 512 L0 512 Z" fill="#0A4D5C"/>' +
         '<path d="M0 440 C 70 420, 130 458, 200 440 S 330 420, 400 440 S 480 456, 512 444 L512 512 L0 512 Z" fill="#083A47"/></g>';
 
+    // The square app icon, for the card that replaces "Obtener YouTube Premium" (see runtime.js).
+    var iconUrl = "data:image/svg+xml," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">' + MARK + '</svg>');
+
     var width = 64 + Math.round(name.length * 24);
     var svg =
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + width + ' 56">' +
@@ -124,7 +128,11 @@
         sheet.replaceSync(
             WORDMARK + " {" + image + " background-position: left center !important; }\n" +
             "ytlr-logo-entity ytlr-thumbnail-details, ytlr-logo-entity " + WORDMARK + " {" + image +
-            " background-position: right center !important; }");
+            " background-position: right center !important; }\n" +
+            // The Premium card keeps its gstatic thumbnail URL (a data: URL there is not drawn).
+            '[style*="yt_logo_premium_landing_page"] { background-image: url("' + iconUrl + '") !important;' +
+            " background-size: contain !important; background-repeat: no-repeat !important;" +
+            " background-position: center !important; background-color: transparent !important; }");
         document.adoptedStyleSheets = document.adoptedStyleSheets.concat([sheet]);
         youtv.report("branding: " + name);
     } catch (e) {

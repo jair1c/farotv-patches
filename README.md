@@ -15,13 +15,15 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
   paquete). Inicio de sesión con código de activación (yt.be/activate).
 - **Sección FaroTV dentro de los Ajustes de YouTube**, con interruptores:
   - Bloquear anuncios (de video y los videos "Patrocinado" de Inicio).
+  - Ocultar las promociones de YouTube Premium.
   - Ocultar Shorts.
   - Ocultar las pestañas temáticas (Videojuegos, Noticias, Deportes…).
   - Personalizar el reproductor: ocultar los botones Canal, Descripción, Suscribirse, Me gusta / No me gusta,
     Comentarios, Preguntar (IA), Guardar, Súper gracias, Denunciar y Estadísticas, y la fila de videos relacionados.
   - Las opciones que necesitan reiniciar muestran el diálogo propio de YouTube con el botón **Reiniciar**.
-- **Marca FaroTV**: nombre, icono, banner de Android TV, logo dentro de la app, pantalla de inicio (splash) propia y
-  color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.).
+- **Marca FaroTV**: nombre, icono, banner de Android TV, logo dentro de la app, pantalla de inicio (splash) propia,
+  color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.) y una
+  tarjeta FaroTV en lugar de "Obtener YouTube Premium" al inicio de la Configuración.
 - **Instalador de MicroG-RE**: si falta, la app lo avisa con un panel al estilo de YouTube TV y lo descarga e instala
   desde GitHub (MorpheApp/MicroG-RE, versión oficial sin cambios). Al terminar, el botón "Reiniciar la app" la vuelve
   a abrir.

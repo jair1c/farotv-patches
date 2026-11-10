@@ -165,8 +165,39 @@
 
     // The Settings response is items[] of settingCategoryCollectionRenderer. Ours goes right after
     // the first category, and only once the registry is patched (so every switch can be stored).
+    // With "Custom branding", the "Obtener YouTube Premium" card (first item of the first category,
+    // itemId PREMIUM_LANDING_PAGE*, sent by the server) becomes an app card whose button jumps to
+    // the app's own settings.
+    function brandPremiumCard(items) {
+        var name = window.__youtvBranding;
+        if (!name) return;
+        for (var i = 0; i < items.length; i++) {
+            var category = items[i] && items[i].settingCategoryCollectionRenderer;
+            if (!category || !Array.isArray(category.items)) continue;
+            for (var j = 0; j < category.items.length; j++) {
+                var card = category.items[j] && category.items[j].settingActionRenderer;
+                if (!card || !/^PREMIUM_/.test(card.itemId || "")) continue;
+                var open = settings.length
+                    ? { applicationSettingsEndpoint: { itemId: settings[0].key } }
+                    : CLOSE_POPUP;
+                card.title = runs(name);
+                card.summary = runs("Sin anuncios, sin Shorts y con el reproductor a tu gusto. " +
+                    "Todo se configura en la sección " + name + ", más abajo.");
+                card.serviceEndpoint = open;
+                var button = card.actionButton && card.actionButton.buttonRenderer;
+                if (button) {
+                    button.text = runs("Ir a la configuración de " + name);
+                    button.serviceEndpoint = open;
+                    button.command = open;
+                }
+                report("branding: premium card replaced");
+            }
+        }
+    }
+
     function injectSettingsCategory(response) {
         var items = response.items;
+        if (Array.isArray(items)) brandPremiumCard(items);
         if (!registry || !settings.length || !Array.isArray(items)) return;
         var isSettings = false;
         for (var i = 0; i < items.length; i++) {
