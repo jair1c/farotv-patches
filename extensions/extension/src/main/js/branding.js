@@ -126,9 +126,11 @@
             " background-size: contain !important;" +
             " background-repeat: no-repeat !important;";
         sheet.replaceSync(
-            WORDMARK + " {" + image + " background-position: left center !important; }\n" +
+            // Sign-in / activation screen: 20% bigger, growing from its left edge.
+            WORDMARK + " {" + image + " background-position: left center !important;" +
+            " transform: scale(1.2); transform-origin: left center; }\n" +
             "ytlr-logo-entity ytlr-thumbnail-details, ytlr-logo-entity " + WORDMARK + " {" + image +
-            " background-position: right center !important; }\n" +
+            " background-position: right center !important; transform: none; }\n" +
             // The Premium card keeps its gstatic thumbnail URL (a data: URL there is not drawn).
             '[style*="yt_logo_premium_landing_page"], [style*="farotv=brand"] { background-image: url("' + iconUrl + '") !important;' +
             " background-size: contain !important; background-repeat: no-repeat !important;" +
