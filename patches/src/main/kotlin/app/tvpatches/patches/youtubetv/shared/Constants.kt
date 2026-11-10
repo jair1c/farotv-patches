@@ -3,6 +3,7 @@ package app.tvpatches.patches.youtubetv.shared
 import app.morphe.patcher.patch.ApkFileType
 import app.morphe.patcher.patch.AppTarget
 import app.morphe.patcher.patch.Compatibility
+import app.morphe.patcher.patch.FormFactor
 
 internal object Constants {
     const val YOUTUBE_TV_PACKAGE_NAME = "com.google.android.youtube.tv"
@@ -28,9 +29,10 @@ internal object Constants {
             // SHA-256 of CN=ytandroidtv, O=Google Inc.
             "21199d112cece428c82cb0df221da24ff8674c7a982a83a17a970eec43305b4a"
         ),
+        formFactor = FormFactor.TV,
         targets = listOf(
-            // Version analyzed during development (versionCode 732300320).
-            AppTarget(version = "7.32.300", minSdk = 24, isExperimental = true)
+            // Tested on two Android TVs (versionCode 732300320).
+            AppTarget(version = "7.32.300", minSdk = 24)
         )
     )
 }
