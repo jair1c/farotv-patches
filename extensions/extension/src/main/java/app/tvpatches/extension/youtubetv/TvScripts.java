@@ -79,6 +79,12 @@ public final class TvScripts {
         return "";
     }
 
+    /** The app name set by "Custom branding", or "" when that patch is not applied. */
+    static String brandingName() {
+        String name = getBrandingName();
+        return name == null ? "" : name;
+    }
+
     private static String cachedScript;
 
     private static String script() {

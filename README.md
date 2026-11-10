@@ -20,7 +20,11 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
   - Personalizar el reproductor: ocultar los botones Canal, Descripción, Suscribirse, Me gusta / No me gusta,
     Comentarios, Preguntar (IA), Guardar, Súper gracias, Denunciar y Estadísticas, y la fila de videos relacionados.
   - Las opciones que necesitan reiniciar muestran el diálogo propio de YouTube con el botón **Reiniciar**.
-- **Marca FaroTV**: nombre, icono, banner de Android TV y logo dentro de la app (se puede cambiar el nombre).
+- **Marca FaroTV**: nombre, icono, banner de Android TV, logo dentro de la app, pantalla de inicio (splash) propia y
+  color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.).
+- **Instalador de MicroG-RE**: si falta, la app lo avisa con un panel al estilo de YouTube TV y lo descarga e instala
+  desde GitHub (MorpheApp/MicroG-RE, versión oficial sin cambios). Al terminar, el botón "Reiniciar la app" la vuelve
+  a abrir.
 - **Spoof device** (desactivado por defecto): hace pasar el TV por un Chromecast, para televisores que YouTube
   marca como "no compatibles".
 

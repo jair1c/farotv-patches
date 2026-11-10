@@ -1,6 +1,7 @@
 package app.tvpatches.patches.youtubetv.layout.branding
 
 import app.morphe.patcher.Fingerprint
+import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.patch.listDecodableFiles
 import app.morphe.patcher.patch.resourceFile
@@ -8,6 +9,7 @@ import app.morphe.patcher.patch.resourcePatch
 import app.morphe.patcher.patch.resourceXml
 import app.morphe.patcher.patch.stringOption
 import app.morphe.patcher.util.returnEarly
+import app.tvpatches.patches.youtubetv.misc.gms.CobaltActivityOnCreateFingerprint
 import app.tvpatches.patches.youtubetv.misc.gms.youtubeTvExtensionPatch
 import app.tvpatches.patches.youtubetv.shared.Constants.COMPATIBILITY_YOUTUBE_TV
 
@@ -24,6 +26,15 @@ private val IMAGES = listOf(
 internal object BrandingNameFingerprint : Fingerprint(
     definingClass = "Lapp/tvpatches/extension/youtubetv/TvScripts;",
     name = "getBrandingName",
+)
+
+private const val SPLASH_CLASS = "Lapp/tvpatches/extension/youtubetv/SplashOverlay;"
+
+internal object HideSplashScreenFingerprint : Fingerprint(
+    definingClass = "Ldev/cobalt/coat/StarboardBridge;",
+    name = "hideSplashScreen",
+    returnType = "V",
+    parameters = listOf(),
 )
 
 private fun appName(): String =
@@ -43,6 +54,13 @@ private val brandingResourcePatch = resourcePatch {
         }
         resourceXml("res/values/strings.xml").use { strings ->
             strings.root.elementByAttributeOrNull("name", "standalone_player_activity_name")?.text = "$name Player"
+        }
+
+        // Turn off Cobalt's built-in splash (YouTube logo); SplashOverlay shows FaroTV's instead.
+        resourceXml("AndroidManifest.xml").use { manifest ->
+            manifest.root.elements("meta-data")
+                .filter { it.attribute("android:name") == "cobalt.ENABLE_SPLASH_SCREEN" }
+                .forEach { it.setAttribute("android:value", "false") }
         }
 
         IMAGES.forEach { image ->
@@ -81,5 +99,14 @@ val customBrandingPatch = bytecodePatch(
 
     execute {
         BrandingNameFingerprint.method.returnEarly(appName())
+
+        // Show the FaroTV splash as soon as the activity is created (its own window, so it does
+        // not depend on Cobalt's views).
+        CobaltActivityOnCreateFingerprint.method.addInstruction(
+            0,
+            "invoke-static/range { p0 .. p0 }, $SPLASH_CLASS->show(Landroid/app/Activity;)V",
+        )
+        // Hide it when the web app says it is ready.
+        HideSplashScreenFingerprint.method.addInstruction(0, "invoke-static { }, $SPLASH_CLASS->hide()V")
     }
 }
