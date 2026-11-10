@@ -1,3 +1,9 @@
+## [1.4.2-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.4.1...v1.4.2-dev.1) (2026-11-10)
+
+### 🔧 Improvements
+
+* Skip YouTube responses that cannot contain what a feature removes ([78ec470](https://github.com/jair1c/farotv-patches/commit/78ec470022daccd5cf9280aa2bfb2f508d073a18))
+
 ## [1.4.1](https://github.com/jair1c/farotv-patches/compare/v1.4.0...v1.4.1) (2026-11-10)
 
 ### 🐛 Bug Fixes
