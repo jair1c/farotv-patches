@@ -172,11 +172,31 @@
 
     // Changes to YouTube's own first settings category (sent by the server):
     // - "Compras y membresias" (itemId MANAGE_PURCHASES_AND_MEMBERSHIPS*) is removed;
-    // - with "Custom branding", the "Obtener YouTube Premium" card (itemId PREMIUM_LANDING_PAGE*)
-    //   becomes an app card whose button jumps to our section.
+    // - the "Obtener YouTube Premium" card (itemId PREMIUM_LANDING_PAGE*) is removed.
     // "Acerca de": "Ayuda" (ABOUT_HELP) and "Enviar comentarios" (the action item whose command
     // is a feedback one) are removed, and two items about the bundle and its author go first.
     var GSTATIC_PICTURE = "https://www.gstatic.com/ytlr/img/autoplay.png?farotv=";
+
+    // Built every time the Settings page loads: the YouTube version comes from the installed app
+    // (TvScripts sets window.__youtubeVersion), the list from the features that are switched on.
+    var FEATURE_LABELS = [
+        ["ads", "sin anuncios"], ["shorts", "sin Shorts"], ["sponsorblock", "SponsorBlock"],
+        ["ryd", "Return YouTube Dislike"], ["premium-promos", "sin promociones de Premium"]
+    ];
+
+    function aboutSummary() {
+        var on = FEATURE_LABELS.filter(function (pair) {
+            for (var i = 0; i < features.length; i++) {
+                if (features[i].id === pair[0]) return features[i].enabled();
+            }
+            return false;
+        }).map(function (pair) { return pair[1]; });
+        var list = on.length > 1 ? on.slice(0, -1).join(", ") + " y " + on[on.length - 1] : (on[0] || "");
+        var youtube = window.__youtubeVersion ? "YouTube " + window.__youtubeVersion : "YouTube";
+        return "Android TV · Parches de Morphe para " + youtube + (list ? ": " + list + "." : ".") +
+            " Creado por Gabriel Jair. YouTube, los videos, imágenes y marcas pertenecen a Google" +
+            " y a sus respectivos titulares.";
+    }
 
     function adjustAbout(category) {
         var items = category.items;
@@ -189,7 +209,10 @@
                 items.splice(i, 1);
             }
         }
-        if (items.some(function (item) { return item.settingActionRenderer && item.settingActionRenderer.itemId === "FAROTV_CREATOR"; })) return;
+        for (var k = items.length - 1; k >= 0; k--) {
+            var own = items[k] && items[k].settingActionRenderer;
+            if (own && /^FAROTV_/.test(own.itemId || "")) items.splice(k, 1);
+        }
         var section = sectionTitle();
         var version = window.__farotvVersion ? " " + window.__farotvVersion : "";
         var repository = { confirmDialogEndpoint: { content: { confirmDialogRenderer: {
@@ -217,9 +240,7 @@
             { settingActionRenderer: {
                 itemId: "FAROTV_ABOUT",
                 title: runs(section + version),
-                summary: runs("Android TV · Parches de Morphe para YouTube 7.32.300: sin anuncios, " +
-                    "SponsorBlock, Return YouTube Dislike y más. Creado por Gabriel Jair. " +
-                    "YouTube, los videos, imágenes y marcas pertenecen a Google y a sus respectivos titulares."),
+                summary: runs(aboutSummary()),
                 thumbnail: { thumbnails: [{ url: GSTATIC_PICTURE + "brand" }] },
                 serviceEndpoint: repository,
                 actionButton: button("Ver el repositorio")
@@ -227,7 +248,6 @@
     }
 
     function adjustYouTubeCategories(items) {
-        var name = window.__youtvBranding;
         for (var i = 0; i < items.length; i++) {
             var category = items[i] && items[i].settingCategoryCollectionRenderer;
             if (!category || !Array.isArray(category.items)) continue;
@@ -245,21 +265,10 @@
                     report("settings: purchases and memberships hidden");
                     continue;
                 }
-                if (!name || !/^PREMIUM_/.test(itemId)) continue;
-                var open = settings.length
-                    ? { applicationSettingsEndpoint: { itemId: settings[0].key } }
-                    : CLOSE_POPUP;
-                card.title = runs(sectionTitle());
-                card.summary = runs("Sin anuncios, sin Shorts y con el reproductor a tu gusto. " +
-                    "Todo se configura en la sección " + sectionTitle() + ", más abajo.");
-                card.serviceEndpoint = open;
-                var button = card.actionButton && card.actionButton.buttonRenderer;
-                if (button) {
-                    button.text = runs("Ir a " + sectionTitle());
-                    button.serviceEndpoint = open;
-                    button.command = open;
+                if (/^PREMIUM_/.test(itemId)) {
+                    category.items.splice(j, 1);
+                    report("settings: premium card hidden");
                 }
-                report("branding: premium card replaced");
             }
         }
     }
