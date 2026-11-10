@@ -3,6 +3,9 @@ package app.tvpatches.extension.youtubetv;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -81,12 +84,58 @@ public final class GmsCoreSupportPatch {
             try {
                 pm.getPackageInfo(gmsCore, 0);
                 Log.i(TAG, "GmsCore found: " + gmsCore);
+                keepGmsCoreAlive(activity, gmsCore);
             } catch (PackageManager.NameNotFoundException e) {
                 Log.w(TAG, "GmsCore not installed: " + gmsCore);
                 showMissingDialog(activity, gmsCore);
             }
         } catch (Exception ex) {
             Log.e(TAG, "checkGmsCore failure", ex);
+        }
+    }
+
+    private static boolean keepAliveBound;
+
+    /**
+     * Some TVs run a memory manager that force-stops background apps that are not on its
+     * whitelist (for example HiSilicon's com.hisilicon.rmservice, which protects
+     * com.google.android.gms but not MicroG-RE). Force-stopping MicroG-RE also kills this app,
+     * because it uses MicroG-RE's providers. A BIND_IMPORTANT connection gives MicroG-RE the
+     * same priority as this app while it is open, so it is no longer treated as background.
+     */
+    private static void keepGmsCoreAlive(Activity activity, String gmsCore) {
+        if (keepAliveBound) return;
+        keepAliveBound = true;
+        // MicroG-RE runs in two processes; keep one service bound in each:
+        // DummyService (":unstable" process) and CheckinService (main process).
+        bindImportant(activity, new Intent(gmsCore + ".accounts.ACCOUNT_SERVICE").setPackage(gmsCore));
+        bindImportant(activity, new Intent(gmsCore + ".checkin.BIND_TO_SERVICE").setPackage(gmsCore));
+    }
+
+    private static void bindImportant(Activity activity, Intent intent) {
+        try {
+            ServiceConnection connection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    Log.i(TAG, "GmsCore keep-alive connected: " + name.getShortClassName());
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+                    Log.w(TAG, "GmsCore keep-alive disconnected: " + name.getShortClassName());
+                }
+
+                @Override
+                public void onNullBinding(ComponentName name) {
+                    // DummyService returns no binder; the binding (and the priority) stays.
+                    Log.i(TAG, "GmsCore keep-alive bound: " + name.getShortClassName());
+                }
+            };
+            boolean bound = activity.getApplicationContext().bindService(intent, connection,
+                    Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
+            if (!bound) Log.w(TAG, "GmsCore keep-alive: cannot bind " + intent.getAction());
+        } catch (Exception ex) {
+            Log.e(TAG, "GmsCore keep-alive failed", ex);
         }
     }
 
