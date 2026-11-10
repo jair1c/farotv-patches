@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-11-10T14:27:20",
-  "description": "## [1.1.1](https://github.com/jair1c/farotv-patches/compare/v1.1.0...v1.1.1) (2026-11-10)\n\n### 🐛 Bug Fixes\n\n* Apply the patches again on morphe-desktop ([8b1c139](https://github.com/jair1c/farotv-patches/commit/8b1c1397a7891126f61f0a327861807bae638712))\n* Mark YouTube 7.32.300 as a stable target for Android TV ([fb22cb7](https://github.com/jair1c/farotv-patches/commit/fb22cb70565ea21ff7f2a2196fdc7f0cdca598a0))",
-  "download_url": "https://github.com/jair1c/farotv-patches/releases/download/v1.1.1/patches-1.1.1.mpp",
+  "created_at": "2026-11-10T15:46:10",
+  "description": "## [1.2.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2026-11-10)\n\n### ✨ New Features\n\n* Return YouTube Dislike ([3cfe5c1](https://github.com/jair1c/farotv-patches/commit/3cfe5c157d871a91284471fbdcb33799a2652218))",
+  "download_url": "https://github.com/jair1c/farotv-patches/releases/download/v1.2.0-dev.3/patches-1.2.0-dev.3.mpp",
   "signature_download_url": "",
-  "version": "1.1.1",
+  "version": "1.2.0-dev.3",
   "public_key": "B+w9LCwCheqTn0XZycE7F2wZPc5CBoaYxCExWOrB0sg="
 }

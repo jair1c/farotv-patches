@@ -279,7 +279,7 @@ public final class GmsCoreSupportPatch {
      * Google Play Services has updated the security provider ("Blocked unpatched use of SSL
      * stack"). Without MicroG-RE that never happens, so use Android's own TLS provider.
      */
-    private static SSLSocketFactory platformSocketFactory() throws Exception {
+    static SSLSocketFactory platformSocketFactory() throws Exception {
         if (platformSocketFactory != null) return platformSocketFactory;
         Provider chosen = Security.getProvider("AndroidOpenSSL");
         if (chosen == null || chosen.getService("SSLContext", "TLS") == null) {

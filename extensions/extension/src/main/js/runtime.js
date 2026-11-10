@@ -165,8 +165,52 @@
 
     // The Settings response is items[] of settingCategoryCollectionRenderer. Ours goes right after
     // the first category, and only once the registry is patched (so every switch can be stored).
+    // Title of our settings section: "<app name> Parches" ("FaroTV Parches").
+    function sectionTitle() {
+        return (window.__youtvBranding || "FaroTV") + " Parches";
+    }
+
+    // Changes to YouTube's own first settings category (sent by the server):
+    // - "Compras y membresias" (itemId MANAGE_PURCHASES_AND_MEMBERSHIPS*) is removed;
+    // - with "Custom branding", the "Obtener YouTube Premium" card (itemId PREMIUM_LANDING_PAGE*)
+    //   becomes an app card whose button jumps to our section.
+    function adjustYouTubeCategories(items) {
+        var name = window.__youtvBranding;
+        for (var i = 0; i < items.length; i++) {
+            var category = items[i] && items[i].settingCategoryCollectionRenderer;
+            if (!category || !Array.isArray(category.items)) continue;
+            for (var j = category.items.length - 1; j >= 0; j--) {
+                var item = category.items[j];
+                var card = item && item.settingActionRenderer;
+                if (!card) continue;
+                var itemId = card.itemId || "";
+                if (/^MANAGE_PURCHASES_AND_MEMBERSHIPS/.test(itemId)) {
+                    category.items.splice(j, 1);
+                    report("settings: purchases and memberships hidden");
+                    continue;
+                }
+                if (!name || !/^PREMIUM_/.test(itemId)) continue;
+                var open = settings.length
+                    ? { applicationSettingsEndpoint: { itemId: settings[0].key } }
+                    : CLOSE_POPUP;
+                card.title = runs(sectionTitle());
+                card.summary = runs("Sin anuncios, sin Shorts y con el reproductor a tu gusto. " +
+                    "Todo se configura en la sección " + sectionTitle() + ", más abajo.");
+                card.serviceEndpoint = open;
+                var button = card.actionButton && card.actionButton.buttonRenderer;
+                if (button) {
+                    button.text = runs("Ir a " + sectionTitle());
+                    button.serviceEndpoint = open;
+                    button.command = open;
+                }
+                report("branding: premium card replaced");
+            }
+        }
+    }
+
     function injectSettingsCategory(response) {
         var items = response.items;
+        if (Array.isArray(items)) adjustYouTubeCategories(items);
         if (!registry || !settings.length || !Array.isArray(items)) return;
         var isSettings = false;
         for (var i = 0; i < items.length; i++) {
@@ -177,7 +221,7 @@
         }
         if (!isSettings) return;
         items.splice(1, 0, { settingCategoryCollectionRenderer: {
-            title: runs("FaroTV"),
+            title: runs(sectionTitle()),
             categoryId: CATEGORY_ID,
             focused: false,
             items: settings.map(function (setting) {
@@ -231,14 +275,41 @@
             if (registry) registerSetting(setting);
         });
 
-        features.push({
+        var feature = {
             id: id,
             definition: definition,
             enabled: function () { return readSetting(master); },
             settings: {
                 get: function (key) { return extras[key] ? readSetting(extras[key]) : undefined; }
             }
-        });
+        };
+        features.push(feature);
+        return feature;
+    }
+
+    // ---- network ------------------------------------------------------------------------------
+    // The page's Content Security Policy blocks requests to other sites, so the app's Java side
+    // makes them (TvScripts.onTitle sees "@req <id> <url>", only for an allow-list of hosts) and
+    // hands the answer back through youtv.deliver(id, status, body).
+    var pending = {};
+    var nextRequest = 1;
+
+    function request(url, callback) {
+        var id = nextRequest++;
+        pending[id] = callback;
+        report("@req " + id + " " + url);
+        setTimeout(function () { delete pending[id]; }, 60000);
+    }
+
+    function deliver(id, status, body) {
+        var callback = pending[id];
+        delete pending[id];
+        if (!callback) return;
+        try {
+            callback(status, body);
+        } catch (e) {
+            report("request " + id + " callback failed: " + e);
+        }
     }
 
     // ---- response hook ------------------------------------------------------------------------
@@ -266,6 +337,8 @@
         report: report,
         rawParse: parse,
         feature: defineFeature,
+        request: request,
+        deliver: deliver,
         status: function () {
             return {
                 registry: !!registry,

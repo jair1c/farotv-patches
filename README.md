@@ -13,15 +13,20 @@ FaroTV no es un producto de Google, YouTube ni del proyecto Morphe.
 
 - **MicroG-RE**: la app funciona sin Google Play Services y se instala junto al YouTube original (otro nombre de
   paquete). Inicio de sesión con código de activación (yt.be/activate).
-- **Sección FaroTV dentro de los Ajustes de YouTube**, con interruptores:
+- **Sección "FaroTV Parches" dentro de los Ajustes de YouTube** (y se oculta "Compras y membresías"), con interruptores:
   - Bloquear anuncios (de video y los videos "Patrocinado" de Inicio).
+  - Ocultar las promociones de YouTube Premium.
+  - SponsorBlock: salta los patrocinios, la autopromoción y los recordatorios de suscripción (y, si los activas,
+    intros, créditos, avances, relleno y partes sin música), con un aviso "Se omitió" en pantalla.
+  - Mostrar los "No me gusta" (Return YouTube Dislike): la cifra aparece al seleccionar el botón No me gusta.
   - Ocultar Shorts.
   - Ocultar las pestañas temáticas (Videojuegos, Noticias, Deportes…).
   - Personalizar el reproductor: ocultar los botones Canal, Descripción, Suscribirse, Me gusta / No me gusta,
     Comentarios, Preguntar (IA), Guardar, Súper gracias, Denunciar y Estadísticas, y la fila de videos relacionados.
   - Las opciones que necesitan reiniciar muestran el diálogo propio de YouTube con el botón **Reiniciar**.
-- **Marca FaroTV**: nombre, icono, banner de Android TV, logo dentro de la app, pantalla de inicio (splash) propia y
-  color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.).
+- **Marca FaroTV**: nombre, icono, banner de Android TV, logo dentro de la app, pantalla de inicio (splash) propia,
+  color de acento ámbar en lugar del rojo de YouTube (barras de progreso, distintivo "en vivo", etc.) y una
+  tarjeta FaroTV en lugar de "Obtener YouTube Premium" al inicio de la Configuración.
 - **Instalador de MicroG-RE**: si falta, la app lo avisa con un panel al estilo de YouTube TV y lo descarga e instala
   desde GitHub (MorpheApp/MicroG-RE, versión oficial sin cambios). Al terminar, el botón "Reiniciar la app" la vuelve
   a abrir.
@@ -47,7 +52,7 @@ Este repositorio **no** distribuye el APK de YouTube, ni original ni parcheado.
 ## 🩹 Lista de parches
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.1](https://github.com/jair1c/farotv-patches/releases/tag/v1.1.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
+> **[v1.2.0-dev.3](https://github.com/jair1c/farotv-patches/releases/tag/v1.2.0-dev.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
 <details open>
 <summary>📦 YouTube for Android TV&nbsp;&nbsp;•&nbsp;&nbsp;6 patches</summary>
 <br>
