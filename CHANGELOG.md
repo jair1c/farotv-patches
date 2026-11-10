@@ -1,3 +1,9 @@
+## [1.2.0-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.1.1...v1.2.0-dev.1) (2026-11-10)
+
+### ✨ New Features
+
+* FaroTV card instead of the YouTube Premium offer, and hide Premium promotions ([5469a25](https://github.com/jair1c/farotv-patches/commit/5469a25bd831fa286d3c1df3ce71c1e4fbf4c2fa))
+
 ## [1.1.1](https://github.com/jair1c/farotv-patches/compare/v1.1.0...v1.1.1) (2026-11-10)
 
 ### 🐛 Bug Fixes
