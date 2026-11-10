@@ -1,3 +1,9 @@
+## [1.3.0-dev.3](https://github.com/jair1c/farotv-patches/compare/v1.3.0-dev.2...v1.3.0-dev.3) (2026-11-10)
+
+### ✨ New Features
+
+* Hide "Obtener YouTube Premium"; the About item shows the installed versions and active features ([d0363a9](https://github.com/jair1c/farotv-patches/commit/d0363a90c8ffbefb24a2740146454174c25b696e))
+
 ## [1.3.0-dev.2](https://github.com/jair1c/farotv-patches/compare/v1.3.0-dev.1...v1.3.0-dev.2) (2026-11-10)
 
 ### ✨ New Features
