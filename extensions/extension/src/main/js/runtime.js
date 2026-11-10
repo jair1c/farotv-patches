@@ -11,7 +11,7 @@
 //     defaultEnabled: true,             // true if omitted
 //     restart: false,                   // true: changing it shows the "restart needed" dialog
 //     settings: [{ key: "x", title: "...", summary: "...", default: false }],  // optional extra switches
-//     onResponse: function (response, settings) { ... }  // every parsed InnerTube response, only while
+//     onResponse: function (response, settings, text) { ... }  // every parsed InnerTube response, only while
 // });                                                    // enabled; settings.get("x") reads an extra
 (function () {
     if (location.hostname !== "www.youtube.com" || window.youtv) return;
@@ -397,6 +397,9 @@
     JSON.parse = function () {
         var result = parse.apply(this, arguments);
         if (!result || typeof result !== "object") return result;
+        // The raw text is passed on so features can skip responses without their markers
+        // (youtv.mentions): searching the text is much cheaper than walking the parsed tree.
+        var text = typeof arguments[0] === "string" ? arguments[0] : "";
         try {
             injectSettingsCategory(result);
         } catch (e) {
@@ -406,7 +409,7 @@
             var feature = features[i];
             if (typeof feature.definition.onResponse !== "function" || !feature.enabled()) continue;
             try {
-                feature.definition.onResponse(result, feature.settings);
+                feature.definition.onResponse(result, feature.settings, text);
             } catch (e) {
                 report(feature.id + ": failed: " + e);
             }
@@ -419,6 +422,14 @@
         rawParse: parse,
         feature: defineFeature,
         request: request,
+        // true if the response text contains any of the markers (or the text is unknown).
+        mentions: function (text, markers) {
+            if (!text) return true;
+            for (var i = 0; i < markers.length; i++) {
+                if (text.indexOf(markers[i]) !== -1) return true;
+            }
+            return false;
+        },
         setIcons: setIcons,
         deliver: deliver,
         status: function () {
