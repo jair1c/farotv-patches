@@ -1,3 +1,9 @@
+## [1.3.0-dev.1](https://github.com/jair1c/farotv-patches/compare/v1.2.0...v1.3.0-dev.1) (2026-11-10)
+
+### ✨ New Features
+
+* Pictures for the FaroTV Parches settings, in YouTube TV's style ([6db8fcb](https://github.com/jair1c/farotv-patches/commit/6db8fcb828e7fc8c8ab6f53bca6fa097e06b327a))
+
 ## [1.2.0](https://github.com/jair1c/farotv-patches/compare/v1.1.1...v1.2.0) (2026-11-10)
 
 ### ✨ New Features
